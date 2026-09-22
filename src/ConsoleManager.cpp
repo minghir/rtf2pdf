@@ -1,13 +1,16 @@
 ﻿#include "ConsoleManager.hpp"
 #include "stringUtils.hpp"
+#ifdef _WIN32
 #include <fcntl.h>
 #include <io.h>
+#endif
 #include <codecvt>
 #include <locale>
 #include <filesystem>
 #include <sstream>
 
 void ConsoleManager::initialize() {
+#ifdef _WIN32
     AllocConsole();
     SetConsoleOutputCP(CP_UTF8);
 
@@ -30,10 +33,23 @@ void ConsoleManager::initialize() {
 
     std::cout.clear();
     std::cerr.clear();
+#else
+    std::ios::sync_with_stdio(true);
+#endif
 }
 
 void ConsoleManager::setColor(WORD color) {
+#ifdef _WIN32
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+#else
+    switch (color) {
+    case 2: std::wcout << L"\033[32m"; break;
+    case 3: std::wcout << L"\033[33m"; break;
+    case 4: std::wcout << L"\033[31m"; break;
+    case 9: std::wcout << L"\033[94m"; break;
+    default: std::wcout << L"\033[0m"; break;
+    }
+#endif
 }
 
 void ConsoleManager::resetColor() {
@@ -188,7 +204,11 @@ std::wstring ConsoleManager::getTimestamp() {
     auto now = std::chrono::system_clock::now();
     auto in_time_t = std::chrono::system_clock::to_time_t(now);
     std::tm bt;
+#ifdef _WIN32
     localtime_s(&bt, &in_time_t);
+#else
+    localtime_r(&in_time_t, &bt);
+#endif
 
     std::wstringstream ss;
     ss << std::put_time(&bt, L"%Y-%m-%d %H:%M:%S");

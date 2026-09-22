@@ -6,6 +6,8 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include <codecvt>
+#include <locale>
 
 // Funcțiile tale rămân intacte
 bool tdocsRTFtoPDFMemory(const std::string& rtfContentInMemory, std::vector<uint8_t>& outPdfBuffer) {
@@ -59,12 +61,18 @@ bool writePdfFile(const std::string& filepath, const std::vector<uint8_t>& buffe
 // Helper local pentru conversie wchar_t* la UTF-8 std::string
 std::string wstringToUtf8(const std::wstring& wstr) {
     if (wstr.empty()) return "";
+#ifdef _WIN32
     int size_needed = WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), NULL, 0, NULL, NULL);
     std::string strTo(size_needed, 0);
     WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), &strTo[0], size_needed, NULL, NULL);
     return strTo;
+#else
+    std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+    return converter.to_bytes(wstr);
+#endif
 }
 
+#ifdef _WIN32
 int wmain(int argc, wchar_t* argv[]) {
     // Inițializăm ConsoleManager (configurează corect UTF-8 și stream-urile)
     ConsoleManager::getInstance().initialize();
@@ -112,3 +120,29 @@ int wmain(int argc, wchar_t* argv[]) {
     ConsoleManager::getInstance().shutdown();
     return 0;
 }
+#else
+int main(int argc, char* argv[]) {
+    if (argc < 3) {
+        std::wcerr << L"Utilizare: rtf2pdf <fisier_intrare.rtf> <fisier_iesire.pdf>\n";
+        return 1;
+    }
+
+    ConsoleManager::getInstance().initialize();
+    LOG_INFO(L"[rtf2pdf] Pornire utilitar de conversie RTF -> PDF...");
+
+    std::string rtfContent;
+    if (!readTextFile(argv[1], rtfContent)) {
+        LOG_ERROR(L"[rtf2pdf] Eșec la citirea fișierului RTF de pe disc!");
+        return 1;
+    }
+
+    std::vector<uint8_t> pdfBuffer;
+    if (!tdocsRTFtoPDFMemory(rtfContent, pdfBuffer) || !writePdfFile(argv[2], pdfBuffer)) {
+        LOG_ERROR(L"[rtf2pdf] Conversia sau salvarea PDF a eșuat.");
+        return 1;
+    }
+
+    LOG_SUCCESS(L"[rtf2pdf] Conversie finalizată cu succes!");
+    return 0;
+}
+#endif

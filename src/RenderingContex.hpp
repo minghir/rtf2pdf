@@ -1,6 +1,6 @@
 ﻿#pragma once
-#include "Style.hpp" // Include clasa Style
-#include "Page.hpp"  // Include clasa Page (sau referinta la ea)
+#include "style.hpp"
+#include "page.hpp"
 #include "xhtml.hpp"
 
 

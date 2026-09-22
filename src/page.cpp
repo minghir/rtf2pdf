@@ -1,5 +1,5 @@
-﻿#include "Page.hpp"
-#include "Style.hpp" // pentru convertCssLengthToPt
+﻿#include "page.hpp"
+#include "style.hpp"
 
 #include <algorithm>
 

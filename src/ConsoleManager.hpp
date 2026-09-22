@@ -3,7 +3,16 @@
 
 #pragma once
 
-#include <windows.h> // Pentru HWND, WORD, GetStdHandle, SetConsoleTextAttribute, AllocConsole etc.
+#ifdef _WIN32
+#include <windows.h>
+#else
+using WORD = unsigned short;
+constexpr WORD FOREGROUND_RED = 4;
+constexpr WORD FOREGROUND_GREEN = 2;
+constexpr WORD FOREGROUND_BLUE = 1;
+constexpr WORD FOREGROUND_INTENSITY = 8;
+constexpr WORD BACKGROUND_RED = 64;
+#endif
 #include <iostream>  // Pentru std::wcout, std::endl
 #include <fstream>   // Pentru std::ofstream
 #include <string>    // Pentru std::wstring

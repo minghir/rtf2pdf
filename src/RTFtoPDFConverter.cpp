@@ -1,4 +1,4 @@
-﻿#include "RtfToPdfConverter.hpp"
+﻿#include "RTFtoPDFConverter.hpp"
 #include "ConvertUtils.hpp" // Adăugăm utilitarul pentru twipsToPoints
 
 
