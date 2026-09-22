@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\rtf2pdf.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConsoleManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rtf.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\page.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\style.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stringUtils.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RTFtoPDFConverter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PdfWriterWrapper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConvertUtils.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderingContex.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xhtml.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\XhtmlToPdfConverter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\css.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\ConsoleManager.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rtf.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\page.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\style.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stringUtils.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RTFtoPDFConverter.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BasePdfConverter.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ConvertUtils.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PdfWriterWrapper.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderingContex.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\xhtml.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\XhtmlToPdfConverter.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\css.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
