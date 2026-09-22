@@ -72,6 +72,18 @@ std::string wstringToUtf8(const std::wstring& wstr) {
 #endif
 }
 
+bool tdocsRTFtoPDF2(const std::wstring& rtfPath, const std::wstring& pdfPath) {
+    Rtf rtfDoc;
+    if (rtfDoc.load(rtfPath)) {
+        RtfToPdfConverter converter(rtfDoc);
+        if (converter.convert(pdfPath)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 #ifdef _WIN32
 int wmain(int argc, wchar_t* argv[]) {
     // Inițializăm ConsoleManager (configurează corect UTF-8 și stream-urile)
@@ -91,7 +103,7 @@ int wmain(int argc, wchar_t* argv[]) {
 
     LOG_INFO(L"Fișier intrare: " + std::wstring(argv[1]));
     LOG_INFO(L"Fișier ieșire:  " + std::wstring(argv[2]));
-
+    /*
     // 1. Citim fișierul RTF
     std::string rtfContent;
     if (!readTextFile(inputPath, rtfContent)) {
@@ -114,6 +126,25 @@ int wmain(int argc, wchar_t* argv[]) {
         ConsoleManager::getInstance().shutdown();
         return 1;
     }
+    */
+
+    std::wstring inputFile = argv[1];   // "./test/sample3.rtf"
+    std::wstring outputDir = argv[2];   // "./"
+
+    size_t pos = inputFile.find_last_of(L"/\\");
+    std::wstring dir = (pos == std::wstring::npos) ? L"" : inputFile.substr(0, pos + 1);
+
+    std::wstring file = inputFile.substr(pos + 1); // "sample3.rtf"
+    file = file.substr(0, file.find_last_of(L".")); // "sample3"
+
+    if (tdocsRTFtoPDF2(argv[1], argv[2])) {
+		LOG_SUCCESS(L"[rtf2pdf] Conversie finalizată cu succes!");
+	}
+	else {
+		LOG_ERROR(L"[rtf2pdf] Conversia RTF la PDF a eșuat.");
+		ConsoleManager::getInstance().shutdown();
+		return 1;
+	}   
 
     LOG_SUCCESS(L"[rtf2pdf] Conversie finalizată cu succes!");
 
